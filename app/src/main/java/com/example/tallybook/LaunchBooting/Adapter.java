@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.tallybook.LaunchFragment;
+import com.example.tallybook.LaunchBooting.LaunchFragment;
 
 // 适配器类
 public class Adapter extends FragmentPagerAdapter{
