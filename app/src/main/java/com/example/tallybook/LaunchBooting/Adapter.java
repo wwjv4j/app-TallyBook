@@ -21,5 +21,5 @@ public class Adapter extends FragmentPagerAdapter{
     // 获取指定位置的碎片
     public Fragment getItem(int position) {
         return LaunchFragment.newInstance(position, mImageResId[position]);
-    }
+    }dasfasfaf
 }
