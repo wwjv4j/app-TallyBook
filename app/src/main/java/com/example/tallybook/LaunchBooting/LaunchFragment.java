@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Button;
 import com.example.tallybook.R;
 
+import com.example.tallybook.LaunchBooting.Adapter;
 import com.example.tallybook.MainActivity;
 /**
  *
@@ -28,9 +29,9 @@ public class LaunchFragment extends Fragment{
     private int mPosition; // 位置序号
     private int mImageId; // 图片的资源编号
     private int mCount = 4; // 引导页的数量
-    
+
     // 获取该碎片的一个实例
-    public static LaunchFragment newInstance(int position, int imageId) {
+    public static LaunchFragment newInstance(int position, int imageId, Adapter adapter) {
         LaunchFragment fragment = new LaunchFragment(); // 创建该碎片的一个实例
         Bundle bundle = new Bundle();
         bundle.putInt("position", position); // 往包裹存入位置序号
@@ -58,6 +59,7 @@ public class LaunchFragment extends Fragment{
             rb.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)); // 设置单选按钮的布局参数
             rb.setButtonDrawable(R.drawable.launch_booting_icon_selector); // 设置单选按钮的图表
             rb.setPadding(10, 10, 10, 10); // 设置单选按钮的内边距
+            rb.setClickable(false); // 设置单选按钮不可点击
             rgIndicator.addView(rb); // 把单选按钮添加到单选按钮组
         }
         // 设置高亮显示当前引导页的单选按钮
