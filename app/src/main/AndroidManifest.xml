@@ -13,13 +13,21 @@
         android:theme="@style/Theme.TallyBook"
         tools:targetApi="31">
         <activity
+            android:name=".MineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnalyseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".LaunchBootingActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

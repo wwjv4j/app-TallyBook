@@ -6,7 +6,7 @@
             <item 
                 android:width="@dimen/navigation_button_size"
                 android:height="@dimen/navigation_button_size"
-                android:drawable="@drawable/analyse_checked" />
+                android:drawable="@drawable/icon_analyse_checked" />
         </layer-list>
     </item>
     <item android:state_checked="false">
@@ -14,7 +14,7 @@
             <item 
                 android:width="@dimen/navigation_button_size"
                 android:height="@dimen/navigation_button_size"
-                android:drawable="@drawable/analyse" />
+                android:drawable="@drawable/icon_analyse" />
         </layer-list>
     </item>
 </selector>

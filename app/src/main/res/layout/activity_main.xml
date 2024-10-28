@@ -17,8 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     
-    <include
-        android:id="@+id/navigation"
-        layout="@layout/navigation" />
+    <include layout="@layout/item_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

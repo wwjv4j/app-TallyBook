@@ -57,7 +57,7 @@ public class LaunchFragment extends Fragment{
         for(int i = 0; i < mCount; i++) { // 遍历引导页的数量
             RadioButton rb = new RadioButton(mContext); // 创建一个单选按钮
             rb.setLayoutParams(new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)); // 设置单选按钮的布局参数
-            rb.setButtonDrawable(R.drawable.launch_booting_icon_selector); // 设置单选按钮的图表
+            rb.setButtonDrawable(R.drawable.selector_launch_booting_icon); // 设置单选按钮的图表
             rb.setPadding(10, 10, 10, 10); // 设置单选按钮的内边距
             rb.setClickable(false); // 设置单选按钮不可点击
             rgIndicator.addView(rb); // 把单选按钮添加到单选按钮组

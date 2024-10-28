@@ -9,7 +9,7 @@
     <item name="android:gravity">center</item>
     <item name="android:button">@null</item>
     <item name="android:textSize">0sp</item>
-    <item name="android:background">@drawable/tab_bg_normal</item>
+    <item name="android:background">@drawable/image_tab_bg_normal</item>
 </style>
 
 </resources>
