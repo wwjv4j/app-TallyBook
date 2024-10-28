@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@drawable/home_checked" />
-    <item android:drawable="@drawable/home" />
+    <item android:state_checked="true">
+        <layer-list>
+            <item 
+                android:width="@dimen/navigation_button_size"
+                android:height="@dimen/navigation_button_size"
+                android:drawable="@drawable/home_checked" />
+        </layer-list>
+    </item>
+    <item android:state_checked="false">
+        <layer-list>
+            <item 
+                android:width="@dimen/navigation_button_size"
+                android:height="@dimen/navigation_button_size"
+                android:drawable="@drawable/home" />
+        </layer-list>
+    </item>
 </selector>
