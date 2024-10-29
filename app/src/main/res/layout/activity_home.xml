@@ -48,11 +48,63 @@
                     android:layout_marginTop="10dp" />
                 <!-- 在第二个模块中,采用循环视图 -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/home_recycler_view"
+                    android:id="@+id/home_history_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
                     android:scrollbars="vertical" />  
+            </LinearLayout>
+            <!-- 第三个模块，存放本月的每天账单记录 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:background="@drawable/shape_content_corner"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本月交易"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
+                <!-- 日历头部 -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp" >
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_toLeftOf="@id/home_calendar_date"
+                        android:src="@drawable/icon_circle"
+                        android:layout_marginRight="10dp" />
+                    <TextView
+                        android:id="@+id/home_calendar_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="2024-01"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_toRightOf="@id/home_calendar_date"
+                        android:src="@drawable/icon_circle"
+                        android:layout_marginLeft="10dp" />
+                    
+                </RelativeLayout>
+                <!-- 日历视图使用RecyclerView自定义 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_calendar_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:paddingTop="0dp"
+                    android:layout_margin="15dp"
+                    android:scrollbars="vertical" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
