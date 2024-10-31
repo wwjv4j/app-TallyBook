@@ -1,6 +1,8 @@
 package com.example.tallybook;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.ArrayList;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +12,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import android.widget.TextView;
+import android.content.Intent;
 
 import com.example.tallybook.Entity.BillingRecord;
 import com.example.tallybook.Entity.CalendarDay;
 import com.example.tallybook.Adapter.SimpleRecordsAdapter;
 import com.example.tallybook.Adapter.CalendarAdapter;
+import com.example.tallybook.MainApplication;
+import com.example.tallybook.Database.RecordDatabase;
 
 public class HomeActivity extends AppCompatActivity {
+    private List<BillingRecord> billingRecords = new ArrayList<>();   // 声明一个账单记录列表
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +35,35 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        InitButtonEvent();   // 初始化按钮事件
         InitRecyclerViewOfSimpleBillingHistory();   // 初始化简易账单历史的循环视图
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
     }
-
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InitRecyclerViewOfSimpleBillingHistory();   // 初始化简易账单历史的循环视图
+        InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+    }
+    // 初始化按钮事件
+    private void InitButtonEvent() {
+        TextView tvAdd = findViewById(R.id.home_add_record);   // 获取添加按钮
+        tvAdd.setOnClickListener(v -> {
+            // 跳转到添加账单页面
+            Intent intent = new Intent(this, AddRecordActivity.class);
+            startActivity(intent);
+        });
+    }
     // 初始化简易账单历史的循环视图
     private void InitRecyclerViewOfSimpleBillingHistory() {
+        List<BillingRecord> billingRecords = MainApplication.getInstance().getRecordDB().getBillingRecordDao().getAllRecords();   // 获取账单记录列表
         RecyclerView rvSimpleRecords = findViewById(R.id.home_history_recycler_view);   // 获取循环视图
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);   // 创建线性布局管理器
         rvSimpleRecords.setLayoutManager(layoutManager);   // 设置循环视图的布局管理器
 
-        SimpleRecordsAdapter adapter = new SimpleRecordsAdapter(this, BillingRecord.getSimpleRecords());   // 创建简单记录适配器
+        SimpleRecordsAdapter adapter = new SimpleRecordsAdapter(this, billingRecords);   // 创建简单记录适配器
         rvSimpleRecords.setAdapter(adapter);   // 设置循环视图的适配器
     }
 

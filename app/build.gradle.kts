@@ -38,6 +38,9 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation("androidx.recyclerview:recyclerview:1.2.1") // 添加RecyclerView依赖
+    implementation("androidx.room:room-runtime:2.4.2") // 添加Room依赖
+    annotationProcessor("androidx.room:room-compiler:2.4.2") // 添加Room编译器依赖
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

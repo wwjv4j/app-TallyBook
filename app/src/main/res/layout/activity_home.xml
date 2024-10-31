@@ -109,18 +109,16 @@
         </LinearLayout>
     </ScrollView>
     <TextView
-        android:id="@+id/home_add"
+        android:id="@+id/home_add_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+"
-        android:textSize="30sp"
-        android:background="@drawable/icon_circle"
+        android:textSize="40sp"
+        android:background="@drawable/icon_add_record"
         android:gravity="center"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toTopOf="@id/home_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
         android:textColor="@color/white" />
     <!-- 底部导航栏 -->
     <include layout="@layout/item_navigation"

@@ -2,20 +2,33 @@ package com.example.tallybook.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName="BillingRecords")
 public class BillingRecord {
+    @PrimaryKey
+    private int id; // 主键
     private double amount; // 金额
     private String category; // 类别
-    private String date; // 日期
     private String remark; // 备注
+    private String year; // 年份
+    private String month; // 月份
+    private String day; // 日期
     private String time; // 时间
 
-    public BillingRecord(double amount, String category, String date, String remark, String time) {
+    public BillingRecord(int id, double amount, String category, String year, String month, String day, String time, String remark) {
+        this.id = id;
         this.amount = amount;
         this.category = category;
-        this.date = date;
         this.remark = remark;
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.time = time;
+    }
+    public int getId() {
+        return id;
     }
     public double getAmount() {
         return amount;
@@ -29,17 +42,29 @@ public class BillingRecord {
     public void setCategory(String category) {
         this.category = category;
     }
-    public String getDate() {
-        return date;
-    }
-    public void setDate(String date) {
-        this.date = date;
-    }
     public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+    public String getYear() {
+        return year;
+    }
+    public void setYear(String year) {
+        this.year = year;
+    }
+    public String getMonth() {
+        return month;
+    }
+    public void setMonth(String month) {
+        this.month = month;
+    }
+    public String getDay() {
+        return day;
+    }
+    public void setDay(String day) {
+        this.day = day;
     }
     public String getTime() {
         return time;
@@ -50,15 +75,13 @@ public class BillingRecord {
 
     public static List<BillingRecord> getSimpleRecords() {
         List<BillingRecord> records = new ArrayList<>();
-        records.add(new BillingRecord(100, "餐饮", "2021-01-01", "早餐safasfsafsafasfasfsafasfasfsafasfasf", "08:00"));
-        records.add(new BillingRecord(200, "交通", "2021-01-01", "地铁safasfasfsafasfasfasf", "09:00"));
-        records.add(new BillingRecord(300, "购物", "2021-01-01", "衣服萨芬萨芬阿斯弗萨芬萨芬safasfasfasfafasfasfasfasfasfasafasfasfafs", "10:00"));
-        records.add(new BillingRecord(400, "餐饮", "2021-01-01", "午餐", "12:00"));
-        records.add(new BillingRecord(500, "交通", "2021-01-01", "公交", "13:00"));
-        records.add(new BillingRecord(600, "购物", "2021-01-01", "鞋子", "14:00"));
-        records.add(new BillingRecord(700, "餐饮", "2021-01-01", "晚餐", "18:00"));
-        records.add(new BillingRecord(800, "交通", "2021-01-01", "出租车", "19:00"));
-        records.add(new BillingRecord(900, "购物", "2021-01-01", "包包", "20:00"));
+        records.add(new BillingRecord(1, 100, "餐饮", "2021", "01", "01", "12:00", "吃饭"));
+        records.add(new BillingRecord(2, 200, "交通", "2021", "01", "02", "12:00", "打车"));
+        records.add(new BillingRecord(3, 300, "购物", "2021", "01", "03", "12:00", "买衣服"));
+        records.add(new BillingRecord(4, 400, "餐饮", "2021", "01", "04", "12:00", "吃饭"));
+        records.add(new BillingRecord(5, 500, "交通", "2021", "01", "05", "12:00", "打车"));
+        records.add(new BillingRecord(6, 600, "购物", "2021", "01", "06", "12:00", "买衣服"));
+        records.add(new BillingRecord(7, 700, "餐饮", "2021", "01", "07", "12:00", "吃饭"));
         return records;
     }
 }
