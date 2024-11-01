@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.io.Serializable;
 
 @Entity(tableName="BillingRecords")
-public class BillingRecord {
+public class BillingRecord implements Serializable {
     @PrimaryKey
     private int id; // 主键
     private double amount; // 金额
@@ -29,6 +30,9 @@ public class BillingRecord {
     }
     public int getId() {
         return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     public double getAmount() {
         return amount;

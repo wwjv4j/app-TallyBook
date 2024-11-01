@@ -14,7 +14,10 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.example.tallybook.R;
+import android.content.Intent;
+import android.os.Bundle;
 
+import com.example.tallybook.RecordDedailActivity;
 import com.example.tallybook.Entity.BillingRecord;
 
 public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
@@ -45,6 +48,15 @@ public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
         itemHolder.tvAmount.setText(String.valueOf(record.getAmount()));
         itemHolder.tvRemark.setText(record.getRemark());
         itemHolder.ivIcon.setImageResource(R.drawable.icon_circle);
+
+        itemHolder.itemView.setOnClickListener(v -> {
+            itemHolder.itemView.setSelected(true);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("record", record);
+            Intent intent = new Intent(mContext, RecordDedailActivity.class);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        });
     }
     // 定义简单记录的持有者
     public class ItemHolder extends ViewHolder {
@@ -52,6 +64,7 @@ public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
         public TextView tvAmount;
         public TextView tvRemark;
         public ImageView ivIcon;
+        public View itemView;
 
         public ItemHolder(View itemView) {
             super(itemView);
@@ -59,6 +72,7 @@ public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
             tvAmount = itemView.findViewById(R.id.simple_billing_history_amount);
             tvRemark = itemView.findViewById(R.id.simple_billing_history_remark);
             ivIcon = itemView.findViewById(R.id.simple_billing_history_icon);
+            this.itemView = itemView;
         }
     }
 }
