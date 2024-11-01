@@ -31,6 +31,14 @@
                 android:background="@drawable/shape_content_corner"
                 android:orientation="horizontal"
                 android:layout_margin="20dp">
+                <TextView
+                    android:id="@+id/home_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总金额"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
             <!-- 第二个模块,放置最近几次的简单账单记录 -->
             <LinearLayout

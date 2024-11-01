@@ -46,7 +46,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<ViewHolder>{
             calendarHolder.tvDay.setVisibility(View.INVISIBLE);
             calendarHolder.tvAmount.setVisibility(View.INVISIBLE);
         } 
-        if(day.getAmount().equals("0")) {
+        if(day.getAmount().equals("0.0")) {
             calendarHolder.tvAmount.setVisibility(View.INVISIBLE);
         }
     }

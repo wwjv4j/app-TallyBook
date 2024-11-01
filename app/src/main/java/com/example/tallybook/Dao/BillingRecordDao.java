@@ -14,25 +14,25 @@ public interface BillingRecordDao {
     @Query("SELECT * FROM BillingRecords")
     List<BillingRecord> getAllRecords();
 
-    // 获取指定年份的账单记录
-    @Query("SELECT * FROM BillingRecords WHERE year = :year")
-    List<BillingRecord> getRecordsByYear(String year);
+    // 获取指定年份的账单总额
+    @Query("SELECT SUM(amount) FROM BillingRecords WHERE year = :year")
+    double getAmountByYear(String year);
 
-    // 获取指定年份、月份的账单记录
-    @Query("SELECT * FROM BillingRecords WHERE year = :year AND month = :month")
-    List<BillingRecord> getRecordsByMonth(String year, String month);
+    // 获取指定年份、月份的账单总额
+    @Query("SELECT SUM(amount) FROM BillingRecords WHERE year = :year AND month = :month")
+    double getAmountByMonth(String year, String month);
 
-    // 获取指定年份、月份、日期的账单记录
-    @Query("SELECT * FROM BillingRecords WHERE year = :year AND month = :month AND day = :day")
-    List<BillingRecord> getRecordsByDay(String year, String month, String day);
+    // 获取指定年份、月份、日期的账单总额
+    @Query("SELECT SUM(amount) FROM BillingRecords WHERE year = :year AND month = :month AND day = :day")
+    double getAmountByDay(String year, String month, String day);
 
-    // 获取指定年份、月份、类别的账单记录
-    @Query("SELECT * FROM BillingRecords WHERE year = :year AND month = :month AND category = :category")
-    List<BillingRecord> getRecordsByCategory(String year, String month, String category);
+    // 获取指定年份、月份、类别的账单总额
+    @Query("SELECT SUM(amount) FROM BillingRecords WHERE year = :year AND month = :month AND category = :category")
+    double getAmountByCategory(String year, String month, String category);
 
-    // 获取指定年份、月份、类别、日期的账单记录 
-    @Query("SELECT * FROM BillingRecords WHERE year = :year AND month = :month AND category = :category AND day = :day")
-    List<BillingRecord> getRecordsByCategoryAndDay(String year, String month, String category, String day);
+    // 获取指定年份、月份、类别、日期的账单总额
+    @Query("SELECT SUM(amount) FROM BillingRecords WHERE year = :year AND month = :month AND category = :category AND day = :day")
+    double getAmountByCategoryAndDay(String year, String month, String category, String day);
 
     // 插入一条账单记录
     @Insert

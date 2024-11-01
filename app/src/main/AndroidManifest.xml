@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TallyBook"
         tools:targetApi="31">
+        <service
+            android:name=".FreshService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".RecordDedailActivity"
             android:exported="false" />

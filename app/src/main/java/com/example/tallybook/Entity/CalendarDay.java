@@ -3,6 +3,7 @@ package com.example.tallybook.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import com.example.tallybook.MainApplication;
 
 public class CalendarDay {
     String day;
@@ -42,7 +43,9 @@ public class CalendarDay {
             days.add(new CalendarDay("null", "null"));
         }
         for(int i = 1; i <= lastDay; i++) {
-            days.add(new CalendarDay(String.valueOf(i), "124.3"));
+            double amount = 0;
+            amount = MainApplication.getInstance().getRecordDB().getBillingRecordDao().getAmountByDay(String.valueOf(year), String.valueOf(month), String.valueOf(i));
+            days.add(new CalendarDay(String.valueOf(i), String.valueOf(amount)));
         }
         for(int i = 0; i < 42 - lastDay - firstDayOfWeek + 1; i++) {
             days.add(new CalendarDay("null", "null"));
