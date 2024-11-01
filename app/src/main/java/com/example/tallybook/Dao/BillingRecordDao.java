@@ -34,6 +34,10 @@ public interface BillingRecordDao {
     @Query("SELECT SUM(amount) FROM BillingRecords WHERE year = :year AND month = :month AND category = :category AND day = :day")
     double getAmountByCategoryAndDay(String year, String month, String category, String day);
 
+    // 获取指定年份、月份的账单记录
+    @Query("SELECT * FROM BillingRecords WHERE year = :year AND month = :month")
+    List<BillingRecord> getMonthRecords(String year, String month);
+    
     // 插入一条账单记录
     @Insert
     void insertRecord(BillingRecord record);

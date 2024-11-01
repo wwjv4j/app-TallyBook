@@ -29,8 +29,8 @@ public class HomeActivity extends AppCompatActivity {
     private List<BillingRecord> billingRecords = new ArrayList<>();   // 声明一个账单记录列表
     private SimpleRecordsAdapter simpleRecordsAdapter;   // 声明一个简单记录适配器
     private CalendarAdapter calendarAdapter;   // 声明一个日历适配器
-    private int currentYear = Calendar.getInstance().get(Calendar.YEAR);   // 当前年份
-    private int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;   // 当前月份
+    public static int currentYear = Calendar.getInstance().get(Calendar.YEAR);   // 当前年份
+    public static int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;   // 当前月份
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
