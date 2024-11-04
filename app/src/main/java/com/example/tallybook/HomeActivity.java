@@ -2,8 +2,12 @@ package com.example.tallybook;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale.Category;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
+
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.RadioButton;
 
 import com.example.tallybook.Entity.BillingRecord;
 import com.example.tallybook.Entity.CalendarDay;
@@ -23,6 +28,9 @@ import com.example.tallybook.Adapter.CalendarAdapter;
 import com.example.tallybook.Dao.BillingRecordDao;
 import com.example.tallybook.MainApplication;
 import com.example.tallybook.Database.RecordDatabase;
+import com.example.tallybook.Entity.CategoryAmount;
+import com.example.tallybook.AnalyseActivity;
+import com.example.tallybook.MineActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private BillingRecordDao billingRecordDao = MainApplication.getInstance().getRecordDB().getBillingRecordDao();   // 声明一个账单记录数据访问对象
@@ -45,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         InitRecyclerViewOfSimpleBillingHistory();   // 初始化简易账单历史的循环视图
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
         InitButtonEvent();   // 初始化按钮事件
+        InitNavigation();   // 初始化导航
     }
     
     @Override
@@ -98,5 +107,21 @@ public class HomeActivity extends AppCompatActivity {
         // 创建日历适配器
         calendarAdapter = new CalendarAdapter(this, CalendarDay.getCalendarDays(currentYear, currentMonth));   // 创建日历适配器
         rvCalendar.setAdapter(calendarAdapter);   // 设置循环视图的适配器
+    }
+
+    // 初始化导航
+    private void InitNavigation() {
+        RadioButton rbAnalyse = findViewById(R.id.navigation_analyse);   // 获取分析按钮
+        RadioButton rbMine = findViewById(R.id.navigation_mine);   // 获取我的按钮
+        rbAnalyse.setOnClickListener(v -> {
+            // 跳转到分析页面
+            Intent intent = new Intent(this, AnalyseActivity.class);
+            startActivity(intent);
+        });
+        rbMine.setOnClickListener(v -> {
+            // 跳转到我的页面
+            Intent intent = new Intent(this, MineActivity.class);
+            startActivity(intent);
+        });
     }
 }

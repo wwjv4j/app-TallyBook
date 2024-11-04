@@ -8,6 +8,7 @@ import androidx.room.Dao;
 import java.util.List;
 
 import com.example.tallybook.Entity.BillingRecord;
+import com.example.tallybook.Entity.CategoryAmount;
 @Dao
 public interface BillingRecordDao {
     // 获取所有账单记录
@@ -69,5 +70,9 @@ public interface BillingRecordDao {
     // 获取最大id
     @Query("SELECT MAX(id) FROM BillingRecords")
     int getMaxId();
+
+    // 获取指定年份、月份的每个类别的总额
+    @Query("SELECT category, SUM(amount) as amount FROM BillingRecords WHERE year = :year AND month = :month GROUP BY category")
+    List<CategoryAmount> getCategoryAmountByMonth(String year, String month);
 
 }

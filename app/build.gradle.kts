@@ -1,3 +1,5 @@
+
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -41,6 +43,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.4.2") // 添加Room依赖
     annotationProcessor("androidx.room:room-compiler:2.4.2") // 添加Room编译器依赖
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

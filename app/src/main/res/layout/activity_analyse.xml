@@ -5,6 +5,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AnalyseActivity">
+    tools:context=".AnalyseActivity"
+    android:background="@color/background">
+    <!-- 第一个模块,放置当月总账单 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/shape_content_corner"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+    
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/analyse_pie_chart"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
