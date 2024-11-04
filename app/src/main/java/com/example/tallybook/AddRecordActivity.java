@@ -32,8 +32,15 @@ public class AddRecordActivity extends AppCompatActivity {
 
         InitCategory();
         InitConfirmButton();
+        InitReturnButton();
     }
 
+    // 初始化返回按钮
+    private void InitReturnButton() {
+        findViewById(R.id.add_record_return_button).setOnClickListener(v-> {
+            finish();
+        });
+    }
     // 初始化类别按钮
     private void InitCategory() {
         FlexboxLayout flexboxLayout = findViewById(R.id.add_record_category);

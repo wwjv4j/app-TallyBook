@@ -31,6 +31,14 @@ public class RecordDedailActivity extends AppCompatActivity {
         // 根据home页面的消费记录初始化页面
         BillingRecord record = (BillingRecord)getIntent().getSerializableExtra("record");
         InitPage(record);
+        InitReturnButton();
+    }
+
+    // 初始化返回按钮
+    private void InitReturnButton() {
+        findViewById(R.id.record_detail_return_button).setOnClickListener(v-> {
+            finish();
+        });
     }
 
     // 根据传入的消费记录初始化页面

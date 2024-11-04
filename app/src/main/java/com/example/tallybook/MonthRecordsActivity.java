@@ -31,8 +31,14 @@ public class MonthRecordsActivity extends AppCompatActivity {
         });
 
         InitMonthRecords();
+        InitReturnButton();
     }
-
+    // 初始化返回按钮
+    private void InitReturnButton() {
+        findViewById(R.id.month_records_return_button).setOnClickListener(v-> {
+            finish();
+        });
+    }
     void InitMonthRecords() {
         monthBillingRecords = MainApplication.getInstance().getRecordDB().getBillingRecordDao().getMonthRecords(String.valueOf(HomeActivity.currentYear), String.valueOf(HomeActivity.currentMonth));
         Collections.reverse(monthBillingRecords);
