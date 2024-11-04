@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         billingRecords.clear();   // 清空账单记录列表
         billingRecords.addAll(newBillingRecords);   // 添加新的账单记录
         simpleRecordsAdapter.notifyDataSetChanged();   // 通知适配器数据发生变化
-
+        InitOverview();   // 初始化概览
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
     }
 
@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     // 初始化简易账单历史的循环视图
     private void InitRecyclerViewOfSimpleBillingHistory() {
+        // billingRecordDao.deleteAllRecords();
         billingRecords = billingRecordDao.getAllRecords();   // 获取账单记录列表
         Collections.reverse(billingRecords);   // 反转账单记录列表
         RecyclerView rvSimpleRecords = findViewById(R.id.home_history_recycler_view);   // 获取循环视图

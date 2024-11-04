@@ -43,7 +43,7 @@
             <!-- 第二个模块,放置最近几次的简单账单记录 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:background="@drawable/shape_content_corner"
                 android:orientation="vertical"
                 android:layout_margin="20dp">
@@ -65,7 +65,7 @@
             <!-- 第三个模块，存放本月的每天账单记录 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="800dp"
+                android:layout_height="500dp"
                 android:background="@drawable/shape_content_corner"
                 android:orientation="vertical"
                 android:layout_margin="20dp">
