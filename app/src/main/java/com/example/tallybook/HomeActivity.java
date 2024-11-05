@@ -20,6 +20,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.RadioButton;
+import android.graphics.Color;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.LimitLine;
 
 import com.example.tallybook.Entity.BillingRecord;
 import com.example.tallybook.Entity.CalendarDay;
@@ -54,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
         InitButtonEvent();   // 初始化按钮事件
         InitNavigation();   // 初始化导航
+        InitLineChart();   // 初始化折线图
     }
     
     @Override
@@ -66,6 +76,37 @@ public class HomeActivity extends AppCompatActivity {
         simpleRecordsAdapter.notifyDataSetChanged();   // 通知适配器数据发生变化
         InitOverview();   // 初始化概览
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+    }
+    
+    // 初始化折线图
+    private void InitLineChart() {
+        List<BillingRecord> records = billingRecordDao.getMonthRecords(String.valueOf(currentYear), String.valueOf(currentMonth));   // 获取指定年份、月份的账单记录
+        List<Entry> entries = new ArrayList<>();   // 声明一个条目列表
+        float days[] = new float[32];   // 声明一个天数数组
+        for (int i = 0; i < records.size(); i++) {
+            BillingRecord record = records.get(i);   // 获取账单记录
+            days[Integer.parseInt(record.getDay())] = (float)record.getAmount();   // 标记天数
+        }
+        for (int i = 1; i < 32; i++) {
+            entries.add(new Entry(i, days[i]));   // 添加条目
+        }
+        LineChart lineChart = findViewById(R.id.home_line_chart);   // 获取折线图
+        LineDataSet dataSet = new LineDataSet(entries, "");   // 创建折线数据集
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);   // 设置颜色
+        LineData data = new LineData(dataSet);   // 创建折线数据
+        lineChart.setData(data);   // 设置折线图数据
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.getDescription().setEnabled(false);
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f); // 设置最小间隔为 1
+        xAxis.setGranularityEnabled(true);
+        xAxis.setLabelCount(15, true); // 设置显示的标签数量，这里的 10 可以根据数据量调整
+        
+        lineChart.invalidate();   // 刷新折线图
     }
 
     // 初始化概览

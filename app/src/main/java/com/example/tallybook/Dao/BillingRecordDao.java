@@ -74,5 +74,5 @@ public interface BillingRecordDao {
     // 获取指定年份、月份的每个类别的总额
     @Query("SELECT category, SUM(amount) as amount FROM BillingRecords WHERE year = :year AND month = :month GROUP BY category")
     List<CategoryAmount> getCategoryAmountByMonth(String year, String month);
-
+    
 }
