@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.content.Intent;
 import android.widget.RadioButton;
 import android.graphics.Color;
@@ -77,6 +79,11 @@ public class HomeActivity extends AppCompatActivity {
         InitOverview();   // 初始化概览
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UpdateCalendar();
+    }
     
     // 初始化折线图
     private void InitLineChart() {
@@ -124,6 +131,31 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddRecordActivity.class);
             startActivity(intent);
         });
+
+        ImageView ivLastMonth = findViewById(R.id.home_last_month);   // 获取上个月按钮
+        ivLastMonth.setOnClickListener(v->{
+            if(currentMonth == 1) {
+                currentYear--;
+                currentMonth = 12;
+            } else {
+                currentMonth--;
+            }
+            InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+            TextView tvCalendarDate = findViewById(R.id.home_calendar_date);   // 获取日历日期文本
+            tvCalendarDate.setText(String.format("%d-%d", currentYear, currentMonth));   // 设置日历日期文本
+        });
+        ImageView ivNextMonth = findViewById(R.id.home_next_month);   // 获取下个月按钮
+        ivNextMonth.setOnClickListener(v->{
+            if(currentMonth == 12) {
+                currentYear++;
+                currentMonth = 1;
+            } else {
+                currentMonth++;
+            }
+            InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+            TextView tvCalendarDate = findViewById(R.id.home_calendar_date);   // 获取日历日期文本
+            tvCalendarDate.setText(String.format("%d-%d", currentYear, currentMonth));   // 设置日历日期文本
+        });
     }
     // 初始化简易账单历史的循环视图
     private void InitRecyclerViewOfSimpleBillingHistory() {
@@ -164,5 +196,12 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MineActivity.class);
             startActivity(intent);
         });
+    }
+
+    void UpdateCalendar() {
+        TextView tvCalendarDate = findViewById(R.id.home_calendar_date);   // 获取日历日期文本
+        currentYear = Calendar.getInstance().get(Calendar.YEAR);   // 当前年份
+        currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;   // 当前月份
+        tvCalendarDate.setText(String.format("%d-%d", currentYear, currentMonth));   // 设置日历日期文本
     }
 }
