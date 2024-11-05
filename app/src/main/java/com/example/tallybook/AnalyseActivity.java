@@ -20,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import android.widget.TextView;
+import android.widget.ImageView;
+import android.content.Intent;
+import android.widget.RadioButton;
 
 
 import com.example.tallybook.Entity.CategoryAmount;
@@ -38,6 +41,8 @@ import com.example.tallybook.MainApplication;
 import com.example.tallybook.Database.RecordDatabase;
 import com.example.tallybook.Entity.CategoryAmount;
 import com.example.tallybook.HomeActivity;
+import com.example.tallybook.MineActivity;
+
 public class AnalyseActivity extends AppCompatActivity {
     private BillingRecordDao billingRecordDao = MainApplication.getInstance().getRecordDB().getBillingRecordDao();   // 声明一个账单记录数据访问对象
 
@@ -51,7 +56,7 @@ public class AnalyseActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        InitNavigation();   // 初始化导航栏
         InitPieChart();   // 初始化饼图
     }
 
@@ -67,5 +72,22 @@ public class AnalyseActivity extends AppCompatActivity {
         PieData data = new PieData(dataSet);
         pieChartView.setData(data);
         pieChartView.invalidate();
+    }
+    
+    // 初始化导航栏
+    private void InitNavigation() {
+        RadioButton rbHome = findViewById(R.id.navigation_home);
+        RadioButton rbMine = findViewById(R.id.navigation_mine);
+        RadioButton rbAnalyse = findViewById(R.id.navigation_analyse);
+        rbAnalyse.setChecked(true);
+
+        rbHome.setOnClickListener(v -> {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        });
+        rbMine.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MineActivity.class);
+            startActivity(intent);
+        });
     }
 }

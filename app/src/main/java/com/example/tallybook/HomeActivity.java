@@ -78,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
         simpleRecordsAdapter.notifyDataSetChanged();   // 通知适配器数据发生变化
         InitOverview();   // 初始化概览
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+        InitLineChart();
     }
     @Override
     protected void onPause() {
@@ -184,8 +185,11 @@ public class HomeActivity extends AppCompatActivity {
 
     // 初始化导航
     private void InitNavigation() {
+        RadioButton rbHome = findViewById(R.id.navigation_home);   // 获取首页按钮
         RadioButton rbAnalyse = findViewById(R.id.navigation_analyse);   // 获取分析按钮
         RadioButton rbMine = findViewById(R.id.navigation_mine);   // 获取我的按钮
+        rbHome.setChecked(true);   // 设置首页按钮为选中状态
+        
         rbAnalyse.setOnClickListener(v -> {
             // 跳转到分析页面
             Intent intent = new Intent(this, AnalyseActivity.class);

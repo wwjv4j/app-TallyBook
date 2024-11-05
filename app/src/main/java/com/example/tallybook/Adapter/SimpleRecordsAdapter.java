@@ -13,12 +13,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+import android.os.Looper;
+import androidx.appcompat.app.AlertDialog;
 import com.example.tallybook.R;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.app.Activity;
 
 import com.example.tallybook.RecordDedailActivity;
 import com.example.tallybook.Entity.BillingRecord;
+import com.example.tallybook.MainApplication;
 
 public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
     private Context mContext;
@@ -55,8 +60,40 @@ public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
             bundle.putSerializable("record", record);
             Intent intent = new Intent(mContext, RecordDedailActivity.class);
             intent.putExtras(bundle);
-            mContext.startActivity(intent);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                itemHolder.itemView.setSelected(false);
+                mContext.startActivity(intent);
+            }, 100); // 延时 100 毫秒
         });
+        itemHolder.itemView.setOnLongClickListener(v->{
+            itemHolder.itemView.setSelected(true);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                itemHolder.itemView.setSelected(false);
+                showPopupMenu(record);
+            }, 100); // 延时 100 毫秒
+            return true;
+        });
+    }
+
+    private void showPopupMenu(BillingRecord record) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("选择操作")
+                .setItems(new String[]{"删除", "其他操作"}, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            MainApplication.getInstance().getRecordDB().getBillingRecordDao().deleteRecord(record);
+                            Intent intent = new Intent(mContext, mContext.getClass());
+                            ((Activity) mContext).finish();
+                            mContext.startActivity(intent);
+                            Toast.makeText(mContext, "已删除", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 1:
+                            // 其他操作
+                            Toast.makeText(mContext, "其他操作", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+        builder.create().show();
     }
     // 定义简单记录的持有者
     public class ItemHolder extends ViewHolder {
