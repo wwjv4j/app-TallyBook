@@ -34,6 +34,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import com.example.tallybook.Entity.BillingRecord;
 import com.example.tallybook.Entity.CalendarDay;
+import com.example.tallybook.Entity.CategoryAmount;
 import com.example.tallybook.Adapter.SimpleRecordsAdapter;
 import com.example.tallybook.Adapter.CalendarAdapter;
 import com.example.tallybook.Dao.BillingRecordDao;
@@ -56,22 +57,99 @@ public class AnalyseActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        InitNavigation();   // 初始化导航栏
         InitPieChart();   // 初始化饼图
+        InitButtonEvent();   // 初始化按钮
+        UpdateCalendar();   // 更新日历
+        InitAnalyse();   // 初始化分析
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InitNavigation();   // 初始化导航栏
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UpdateCalendar();   // 更新日历
     }
 
+    // 初始化分析
+    private void InitAnalyse() {
+        // 获取总金额文本
+        TextView tvTotalAmount = findViewById(R.id.analyse_total_amount);   
+        tvTotalAmount.setText("本月消费：" + String.valueOf(billingRecordDao.getAmountByMonth(String.valueOf(HomeActivity.currentYear), String.valueOf(HomeActivity.currentMonth))));   // 设置总金额文本
+        
+        List<CategoryAmount> categoryAmountList = billingRecordDao.getCategoryAmountByMonth(String.valueOf(HomeActivity.currentYear), String.valueOf(HomeActivity.currentMonth));
+        // 设置第一消费类别文本
+        TextView tvFirstCategory = findViewById(R.id.analyse_first_cost);
+        if(categoryAmountList.size() == 0) {
+            tvFirstCategory.setText("本月最大支出 无");
+        } else {
+            tvFirstCategory.setText("本月最大支出 " + categoryAmountList.get(0).category + ":  " + categoryAmountList.get(0).allAmount);
+        }
+        // 设置第二消费类别文本
+        TextView tvSecondCategory = findViewById(R.id.analyse_second_cost);
+        if(categoryAmountList.size() < 2) {
+            tvSecondCategory.setText("本月第二大支出 无");
+        } else {
+            tvSecondCategory.setText("本月第二大支出 " + categoryAmountList.get(1).category + ":  " + categoryAmountList.get(1).allAmount);
+        }
+            // 设置第三消费类别文本
+        TextView tvThirdCategory = findViewById(R.id.analyse_third_cost);
+        if(categoryAmountList.size() < 3) {
+            tvThirdCategory.setText("本月第三大支出 无");
+        } else {
+            tvThirdCategory.setText("本月第三大支出 " + categoryAmountList.get(2).category + ":  " + categoryAmountList.get(2).allAmount);
+        }
+    }
+    private void InitButtonEvent() {
+        ImageView ivLastMonth = findViewById(R.id.analyse_last_month);   // 获取上个月按钮
+        ivLastMonth.setOnClickListener(v->{
+            if(HomeActivity.currentMonth == 1) {
+                HomeActivity.currentYear--;
+                HomeActivity.currentMonth = 12;
+            } else {
+                HomeActivity.currentMonth--;
+            }
+            InitAnalyse();
+            InitPieChart();
+            TextView tvCalendarDate = findViewById(R.id.analyse_calendar_date);   // 获取日历日期文本
+            tvCalendarDate.setText(String.format("%d-%d", HomeActivity.currentYear, HomeActivity.currentMonth));   // 设置日历日期文本
+        });
+        ImageView ivNextMonth = findViewById(R.id.analyse_next_month);   // 获取下个月按钮
+        ivNextMonth.setOnClickListener(v->{
+            if(HomeActivity.currentMonth == 12) {
+                HomeActivity.currentYear++;
+                HomeActivity.currentMonth = 1;
+            } else {
+                HomeActivity.currentMonth++;
+            }
+            InitAnalyse();
+            InitPieChart();
+            TextView tvCalendarDate = findViewById(R.id.analyse_calendar_date);   // 获取日历日期文本
+            tvCalendarDate.setText(String.format("%d-%d", HomeActivity.currentYear, HomeActivity.currentMonth));   // 设置日历日期文本
+        });
+    }
     // 初始化饼图
     private void InitPieChart() {
         // 获取饼图视图
         PieChart pieChartView = findViewById(R.id.analyse_pie_chart);
         List<CategoryAmount> categoryAmountList = billingRecordDao.getCategoryAmountByMonth(String.valueOf(HomeActivity.currentYear), String.valueOf(HomeActivity.currentMonth));
         ArrayList<PieEntry> entries = categoryAmountList.stream().map(CategoryAmount::toPieEntry).collect(Collectors.toCollection(ArrayList::new));
-        // 设置饼图数据
-        PieDataSet dataSet = new PieDataSet(entries, "类别");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        PieData data = new PieData(dataSet);
-        pieChartView.setData(data);
-        pieChartView.invalidate();
+        
+        if(entries.size() == 0) {
+            pieChartView.clear();
+            pieChartView.setNoDataText("暂无数据");
+        }else {
+            // 设置饼图数据
+            PieDataSet dataSet = new PieDataSet(entries, "类别");
+            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            PieData data = new PieData(dataSet);
+            pieChartView.setData(data);
+            pieChartView.getDescription().setEnabled(false);
+            pieChartView.setDrawHoleEnabled(false);
+            pieChartView.invalidate();
+        }
     }
     
     // 初始化导航栏
@@ -89,5 +167,12 @@ public class AnalyseActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MineActivity.class);
             startActivity(intent);
         });
+    }
+
+    void UpdateCalendar() {
+        TextView tvCalendarDate = findViewById(R.id.analyse_calendar_date);   // 获取日历日期文本
+        HomeActivity.currentYear = Calendar.getInstance().get(Calendar.YEAR);   // 当前年份
+        HomeActivity.currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;   // 当前月份
+        tvCalendarDate.setText(String.format("%d-%d", HomeActivity.currentYear, HomeActivity.currentMonth));   // 设置日历日期文本
     }
 }

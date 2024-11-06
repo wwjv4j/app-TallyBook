@@ -10,17 +10,78 @@
     <!-- 第一个模块,放置当月总账单 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="500dp"
         android:background="@drawable/shape_content_corner"
         android:orientation="vertical"
         android:layout_margin="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp" >
+            <ImageView
+                android:id="@+id/analyse_last_month"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toLeftOf="@id/analyse_calendar_date"
+                android:src="@drawable/icon_last_month"
+                android:layout_marginRight="10dp" />
+            <TextView
+                android:id="@+id/analyse_calendar_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="2024-01"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/analyse_next_month"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@id/analyse_calendar_date"
+                android:src="@drawable/icon_next_month"
+                android:layout_marginLeft="10dp" />
+        </RelativeLayout>
     
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/analyse_pie_chart"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/analyse_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总金额"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/analyse_first_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最大支出"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/analyse_second_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第二大支出"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/analyse_third_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第三大支出"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
     <!-- 底部导航栏 -->

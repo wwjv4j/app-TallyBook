@@ -71,8 +71,8 @@ public interface BillingRecordDao {
     @Query("SELECT MAX(id) FROM BillingRecords")
     int getMaxId();
 
-    // 获取指定年份、月份的每个类别的总额
-    @Query("SELECT category, SUM(amount) as amount FROM BillingRecords WHERE year = :year AND month = :month GROUP BY category")
+    // 获取指定年份、月份的每个类别的总额, 按金额降序排列
+    @Query("SELECT category, SUM(amount) as allAmount FROM BillingRecords WHERE year = :year AND month = :month GROUP BY category ORDER BY allAmount DESC")
     List<CategoryAmount> getCategoryAmountByMonth(String year, String month);
     
 }

@@ -64,7 +64,6 @@ public class HomeActivity extends AppCompatActivity {
         InitRecyclerViewOfSimpleBillingHistory();   // 初始化简易账单历史的循环视图
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
         InitButtonEvent();   // 初始化按钮事件
-        InitNavigation();   // 初始化导航
         InitLineChart();   // 初始化折线图
     }
     
@@ -79,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
         InitOverview();   // 初始化概览
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
         InitLineChart();
+        InitNavigation();   // 初始化导航
     }
     @Override
     protected void onPause() {
