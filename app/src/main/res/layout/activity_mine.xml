@@ -5,6 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".AddRecordActivity">
+
+    <ListView
+        android:id="@+id/mine_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:background="@color/background"
+        />
+
+    <!-- 底部导航栏 -->
+    <include layout="@layout/item_navigation"
+        android:id="@+id/mine_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

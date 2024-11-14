@@ -89,6 +89,13 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp" >
                     <ImageView
+                        android:id="@+id/home_last_year"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_toLeftOf="@id/home_last_month"
+                        android:src="@drawable/icon_last_year"
+                        android:layout_marginRight="10dp" />
+                    <ImageView
                         android:id="@+id/home_last_month"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -109,6 +116,13 @@
                         android:layout_height="20dp"
                         android:layout_toRightOf="@id/home_calendar_date"
                         android:src="@drawable/icon_next_month"
+                        android:layout_marginLeft="10dp" />
+                    <ImageView
+                        android:id="@+id/home_next_year"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_toRightOf="@id/home_next_month"
+                        android:src="@drawable/icon_next_year"
                         android:layout_marginLeft="10dp" />
                     
                 </RelativeLayout>

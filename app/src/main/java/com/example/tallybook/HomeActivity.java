@@ -157,6 +157,20 @@ public class HomeActivity extends AppCompatActivity {
             TextView tvCalendarDate = findViewById(R.id.home_calendar_date);   // 获取日历日期文本
             tvCalendarDate.setText(String.format("%d-%d", currentYear, currentMonth));   // 设置日历日期文本
         });
+        ImageView ivNextYear = findViewById(R.id.home_next_year);   // 获取下一年按钮
+        ivNextYear.setOnClickListener(v->{
+            currentYear++;
+            InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+            TextView tvCalendarDate = findViewById(R.id.home_calendar_date);   // 获取日历日期文本
+            tvCalendarDate.setText(String.format("%d-%d", currentYear, currentMonth));   // 设置日历日期文本
+        });
+        ImageView ivLastYear = findViewById(R.id.home_last_year);   // 获取上一年按钮
+        ivLastYear.setOnClickListener(v->{
+            currentYear--;
+            InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
+            TextView tvCalendarDate = findViewById(R.id.home_calendar_date);   // 获取日历日期文本
+            tvCalendarDate.setText(String.format("%d-%d", currentYear, currentMonth));   // 设置日历日期文本
+        });
     }
     // 初始化简易账单历史的循环视图
     private void InitRecyclerViewOfSimpleBillingHistory() {
