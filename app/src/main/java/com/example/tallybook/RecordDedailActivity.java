@@ -11,8 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.content.Intent;
 import android.os.Bundle;
-
-import org.w3c.dom.Text;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import java.util.ArrayList;
 
 import com.example.tallybook.Entity.BillingRecord;
 
@@ -43,14 +44,20 @@ public class RecordDedailActivity extends AppCompatActivity {
 
     // 根据传入的消费记录初始化页面
     private void InitPage(BillingRecord record) {
-        TextView tvAmount = findViewById(R.id.record_detail_amount);
-        TextView tvCategory = findViewById(R.id.record_detail_category);
-        TextView tvRemark = findViewById(R.id.record_detail_remark);
-        TextView tvTime = findViewById(R.id.record_detail_date);
+        ListView lv = findViewById(R.id.record_detail_listview);
 
-        tvAmount.setText(String.valueOf(record.getAmount()));
-        tvCategory.setText(record.getCategory());
-        tvRemark.setText(record.getRemark());
-        tvTime.setText(record.getYear() + "年" + record.getMonth() + "月" + record.getDay() + "日 " + record.getTime());
+        // 创建数据源
+        ArrayList<String> data = new ArrayList<>();
+
+        data.add("消费金额：" + record.getAmount());
+        data.add("消费类型：" + record.getCategory());
+        data.add("消费备注：" + record.getRemark());
+        data.add("消费日期：" + record.getYear() + "年" + record.getMonth() + "月" + record.getDay() + "日" + record.getTime());
+
+        // 创建适配器
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
+
+        // 设置适配器
+        lv.setAdapter(adapter);
     }
 }
