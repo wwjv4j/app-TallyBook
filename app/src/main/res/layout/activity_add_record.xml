@@ -65,88 +65,20 @@
             app:flexWrap="wrap"
             app:justifyContent="flex_start">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="吃饭"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="睡觉"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打豆豆1"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打豆豆2"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打豆豆3"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打豆豆4"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打豆豆5"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打豆豆6"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@null"
-                android:background="@drawable/selector_category_button"
-                android:textSize="20sp" />
-
         </com.google.android.flexbox.FlexboxLayout>
+
+        <TextView
+            android:id="@+id/add_record_add_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加类型"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:button="@null"
+            android:background="@drawable/selector_category_button"
+            android:layout_gravity="end"
+            android:textSize="20sp" />
         <!-- 备注 -->
         <!-- 确认 -->
         <EditText

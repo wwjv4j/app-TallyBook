@@ -9,13 +9,19 @@ import androidx.core.view.ViewCompat;
 import android.view.View;
 import android.widget.TextView;
 import androidx.core.view.WindowInsetsCompat;
+import android.view.ViewGroup;
 import com.google.android.flexbox.FlexboxLayout;
 import com.example.tallybook.MainApplication;
 import com.example.tallybook.Dao.BillingRecordDao;
 import com.example.tallybook.Entity.BillingRecord;
+import com.example.tallybook.FileHelper.CategoryFile;
 import android.widget.Toast;
 import android.widget.EditText;
 import java.util.Calendar;
+import java.util.List;
+
+import org.w3c.dom.Text;
+
 import android.widget.NumberPicker;
 import android.app.AlertDialog;
 import android.widget.DatePicker;
@@ -48,11 +54,18 @@ public class AddRecordActivity extends AppCompatActivity {
         InitCategory();
         InitConfirmButton();
         InitReturnButton();
+        InitAddCategoryButton();
 
         // 限制输入金额的范围
         EditText etAmount = findViewById(R.id.add_record_amount);
         etAmount.setFilters(new InputFilter[]{new InputFilterMinMax(0,99999)});
         
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        // 保存消费类别列表到文件
+        CategoryFile.saveArrayToFile(this, "category", CategoryFile.categoryList);
     }
     // 初始化日期选择器
     private void InitDatePicker() {
@@ -106,9 +119,56 @@ public class AddRecordActivity extends AppCompatActivity {
             finish();
         });
     }
+
+    // 初始化添加类别按钮
+    private void InitAddCategoryButton() {
+        TextView tvAddCategory = findViewById(R.id.add_record_add_category);
+        tvAddCategory.setOnClickListener(v->{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("添加类别");
+
+            // 设置输入框
+            final EditText input = new EditText(this);
+            input.setHint("输入类别名称");
+            builder.setView(input);
+
+            // 设置按钮
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                String category = input.getText().toString().trim();
+                if (!category.isEmpty()) {
+                    CategoryFile.addCategory(category);
+                    CategoryFile.saveArrayToFile(this, "category", CategoryFile.categoryList);
+                    InitCategory();
+                } else {
+                    Toast.makeText(this, "类别名称不能为空", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
+
+            builder.show();
+        });
+    }
     // 初始化类别按钮
     private void InitCategory() {
+        List<String> categoryList = CategoryFile.readArrayFromFile(this, "category");
+
         FlexboxLayout flexboxLayout = findViewById(R.id.add_record_category);
+        flexboxLayout.removeAllViews();
+        // 动态添加类别按钮
+        for(String category : categoryList) {
+            TextView tvButton = (TextView) getLayoutInflater().inflate(R.layout.item_category, null);
+            tvButton.setText(category);
+
+            // 设置布局参数
+            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(16, 16, 16, 16); // 设置外边距，可以根据需要调整
+
+            tvButton.setLayoutParams(layoutParams);
+            flexboxLayout.addView(tvButton);
+        }
         // 设置类别中所有按钮的点击事件,使得只能有一个被选中
         for(int i = 0; i < flexboxLayout.getChildCount(); i++) {
             final int index = i;
@@ -124,6 +184,24 @@ public class AddRecordActivity extends AppCompatActivity {
                     }
                     lastSelected = index;
                 }
+            });
+            //长按
+            tvButton.setOnLongClickListener(v->{
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("选择操作")
+                .setItems(new String[]{"删除"}, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            // 删除操作
+                            Toast.makeText(this, "已删除"+CategoryFile.categoryList.get(index), Toast.LENGTH_SHORT).show();
+                            CategoryFile.categoryList.remove(CategoryFile.categoryList.get(index));
+                            CategoryFile.saveArrayToFile(this, "category", CategoryFile.categoryList);
+                            InitCategory();
+                            break;
+                    }
+                });
+                builder.create().show();
+                return true;
             });
         }
     }

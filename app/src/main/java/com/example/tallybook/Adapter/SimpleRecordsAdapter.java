@@ -78,7 +78,7 @@ public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
     private void showPopupMenu(BillingRecord record) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("选择操作")
-                .setItems(new String[]{"删除", "其他操作"}, (dialog, which) -> {
+                .setItems(new String[]{"删除"}, (dialog, which) -> {
                     switch (which) {
                         case 0:
                             MainApplication.getInstance().getRecordDB().getBillingRecordDao().deleteRecord(record);
@@ -87,10 +87,7 @@ public class SimpleRecordsAdapter extends RecyclerView.Adapter<ViewHolder>{
                             mContext.startActivity(intent);
                             Toast.makeText(mContext, "已删除", Toast.LENGTH_SHORT).show();
                             break;
-                        case 1:
-                            // 其他操作
-                            Toast.makeText(mContext, "其他操作", Toast.LENGTH_SHORT).show();
-                            break;
+
                     }
                 });
         builder.create().show();
