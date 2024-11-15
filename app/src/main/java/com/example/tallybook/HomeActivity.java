@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.content.Intent;
 import android.widget.RadioButton;
 import android.graphics.Color;
+import android.content.SharedPreferences;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        InitLaunchBooting();   // 初始化启动引导
         InitOverview();   // 初始化概览
         InitRecyclerViewOfSimpleBillingHistory();   // 初始化简易账单历史的循环视图
         InitRecyclerViewOfCalendat();   // 初始化日历的循环视图
@@ -84,6 +86,25 @@ public class HomeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         UpdateCalendar();
+    }
+
+    // 初始化启动引导
+    private void InitLaunchBooting() {
+        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        boolean isFirstRun = prefs.getBoolean("isFirstRun", true);
+
+        if (isFirstRun) {
+            // 显示特殊页面
+            Intent intent = new Intent(this, LaunchBootingActivity.class);   // 创建一个意图
+            startActivity(intent);   // 启动意图
+
+            // 设置第一次运行标志为 false
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isFirstRun", false);
+            editor.apply();
+        }
+
+        
     }
     
     // 初始化折线图
@@ -182,6 +203,9 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);   // 创建线性布局管理器
         rvSimpleRecords.setLayoutManager(layoutManager);   // 设置循环视图的布局管理器
         // 创建简单记录适配器
+        if(billingRecords.size() > 10) {
+            billingRecords = billingRecords.subList(0, 10);
+        }
         simpleRecordsAdapter = new SimpleRecordsAdapter(this, billingRecords);   // 创建简单记录适配器
         rvSimpleRecords.setAdapter(simpleRecordsAdapter);   // 设置循环视图的适配器
     }

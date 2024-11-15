@@ -19,8 +19,8 @@ import android.widget.Toast;
 import android.widget.EditText;
 import java.util.Calendar;
 import java.util.List;
-
-import org.w3c.dom.Text;
+import android.os.Handler;
+import android.os.Looper;
 
 import android.widget.NumberPicker;
 import android.app.AlertDialog;
@@ -187,20 +187,24 @@ public class AddRecordActivity extends AppCompatActivity {
             });
             //长按
             tvButton.setOnLongClickListener(v->{
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("选择操作")
-                .setItems(new String[]{"删除"}, (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                            // 删除操作
-                            Toast.makeText(this, "已删除"+CategoryFile.categoryList.get(index), Toast.LENGTH_SHORT).show();
-                            CategoryFile.categoryList.remove(CategoryFile.categoryList.get(index));
-                            CategoryFile.saveArrayToFile(this, "category", CategoryFile.categoryList);
-                            InitCategory();
-                            break;
-                    }
-                });
-                builder.create().show();
+                tvButton.setSelected(true);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    tvButton.setSelected(false);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("选择操作")
+                    .setItems(new String[]{"删除"}, (dialog, which) -> {
+                        switch (which) {
+                            case 0:
+                                // 删除操作
+                                Toast.makeText(this, "已删除"+CategoryFile.categoryList.get(index), Toast.LENGTH_SHORT).show();
+                                CategoryFile.categoryList.remove(CategoryFile.categoryList.get(index));
+                                CategoryFile.saveArrayToFile(this, "category", CategoryFile.categoryList);
+                                InitCategory();
+                                break;
+                        }
+                    });
+                    builder.create().show();
+                }, 100); // 延时 100 毫秒
                 return true;
             });
         }
