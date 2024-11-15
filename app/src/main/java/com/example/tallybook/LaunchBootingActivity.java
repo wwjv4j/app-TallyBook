@@ -26,7 +26,7 @@ public class LaunchBootingActivity extends AppCompatActivity{
         int[] imageList = new int[4]; // 创建一个图片资源列表
         // 往图片资源列表中添加图片资源
         for(int i = 0; i < 4; i++) {
-            imageList[i] = getResources().getIdentifier("image" + (i+1), "drawable", getPackageName());
+            imageList[i] = getResources().getIdentifier("image_booting" + (i+1), "drawable", getPackageName());
         }
 
         Adapter adapter = new Adapter(getSupportFragmentManager(), imageList); // 创建一个启动引导适配器

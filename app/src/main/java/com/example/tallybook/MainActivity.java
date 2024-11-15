@@ -11,7 +11,8 @@ import com.example.tallybook.R;
 import android.widget.TextView;
 import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import com.example.tallybook.HomeActivity;
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return insets;
         });
 
-        TextView tvHelloWorld = findViewById(R.id.hello_world);
-        tvHelloWorld.setOnClickListener(this);
-    }
-
-    public void onClick(View v) {
-        if(v.getId() == R.id.hello_world) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
