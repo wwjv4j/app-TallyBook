@@ -206,6 +206,10 @@ public class HomeActivity extends AppCompatActivity {
         if(billingRecords.size() > 10) {
             billingRecords = billingRecords.subList(0, 10);
         }
+        // 按照日期排序
+        Collections.sort(billingRecords, (o1, o2) -> {
+            return o2.getDate().compareTo(o1.getDate());
+        });
         simpleRecordsAdapter = new SimpleRecordsAdapter(this, billingRecords);   // 创建简单记录适配器
         rvSimpleRecords.setAdapter(simpleRecordsAdapter);   // 设置循环视图的适配器
     }

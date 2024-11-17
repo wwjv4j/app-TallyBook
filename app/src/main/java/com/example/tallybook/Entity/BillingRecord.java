@@ -76,6 +76,9 @@ public class BillingRecord implements Serializable {
     public void setTime(String time) {
         this.time = time;
     }
+    public String getDate() {
+        return year + "-" + month + "-" + day + " " + time;
+    }
 
     public static List<BillingRecord> getSimpleRecords() {
         List<BillingRecord> records = new ArrayList<>();
