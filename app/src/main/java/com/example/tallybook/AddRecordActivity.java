@@ -58,7 +58,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // 限制输入金额的范围
         EditText etAmount = findViewById(R.id.add_record_amount);
-        etAmount.setFilters(new InputFilter[]{new InputFilterMinMax(0,99999)});
+        etAmount.setFilters(new InputFilter[]{new InputFilterMinMax(-9999  ,99999)});
         
     }
     @Override
